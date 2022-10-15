@@ -1,7 +1,13 @@
 <template>
   <HelloWorld msg="Welcome to Your Vue.js App"></HelloWorld>
-  <van-button>按钮</van-button>
+  <van-button class="btn">按钮</van-button>
 </template>
+
+<style>
+.btn {
+  width: 10rem;
+}
+</style>
 
 <route lang="yaml">
 meta:
