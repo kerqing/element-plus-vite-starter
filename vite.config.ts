@@ -1,8 +1,10 @@
 import path from "path";
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-
+import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
+import Pages from "vite-plugin-pages";
+import Layouts from "vite-plugin-vue-layouts";
 
 const pathSrc = path.resolve(__dirname, "src");
 
@@ -22,6 +24,12 @@ export default defineConfig({
   },
   plugins: [
     vue(),
+    AutoImport({
+      imports: ["vue", "vue-router"],
+      dts: "src/auto-imports.d.ts",
+      dirs: ["src/composables", "src/store"],
+      vueTemplate: true,
+    }),
     Components({
       // allow auto load markdown components under `./src/components/`
       extensions: ["vue", "md"],
@@ -30,5 +38,7 @@ export default defineConfig({
       resolvers: [],
       dts: "src/components.d.ts",
     }),
+    Pages(),
+    Layouts(),
   ],
 });

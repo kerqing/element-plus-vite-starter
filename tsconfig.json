@@ -14,7 +14,8 @@
     "paths": {
       "~/*": ["src/*"]
     },
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["vite-plugin-pages/client", "vite-plugin-vue-layouts/client"]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
 }
