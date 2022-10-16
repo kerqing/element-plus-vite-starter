@@ -9,6 +9,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "@vueuse/core": "^9.3.0",
     "amfe-flexible": "^2.2.1",
     "vant": "^3.6.4",
     "vue": "^3.2.36",
