@@ -1,12 +1,22 @@
 <template>
-  <van-list
-    v-model:loading="loading"
-    :finished="finished"
-    finished-text="没有更多了"
-    @load="onLoad"
+  <van-pull-refresh
+    v-model="refreshing"
+    @refresh="onRefresh"
+    pulling-text="下拉刷新"
+    loosing-text="释放刷新"
+    loading-text="下拉加载中..."
+    success-text="刷新成功"
   >
-    <van-cell v-for="item in list" :key="item" :title="item" />
-  </van-list>
+    <van-list
+      v-model:loading="loading"
+      :finished="finished"
+      loading-text="列表加载中..."
+      finished-text="没有更多了"
+      @load="onLoad"
+    >
+      <van-cell v-for="item in list" :key="item" :title="item" />
+    </van-list>
+  </van-pull-refresh>
 </template>
 
 <script setup lang="ts">
@@ -29,6 +39,17 @@ const onLoad = () => {
     if (list.value.length >= 40) {
       finished.value = true;
     }
+  }, 1000);
+};
+
+const refreshing = ref(false);
+const onRefresh = () => {
+  list.value = [];
+  finished.value = false;
+  loading.value = true;
+  setTimeout(() => {
+    refreshing.value = false;
+    onLoad();
   }, 1000);
 };
 </script>
