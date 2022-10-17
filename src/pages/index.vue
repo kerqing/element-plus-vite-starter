@@ -1,4 +1,8 @@
 <template>
+  <van-sticky>
+    <van-nav-bar title="标题" />
+    <van-search v-model="value" placeholder="请输入搜索关键词" />
+  </van-sticky>
   <van-pull-refresh
     ref="refreshRef"
     v-model="refreshing"
