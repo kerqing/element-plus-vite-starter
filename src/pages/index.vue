@@ -28,29 +28,35 @@
 
 <script setup lang="ts">
 const value = ref("")
-const list = ref<number[]>([]);
+const list = ref<any[]>([]);
 const loading = ref(false);
 const finished = ref(false);
-const count = ref(0);
+
+const getData = () : Promise<any[]>=> {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const arr = []
+      for (let i = 0; i < 10; i++) {
+        arr.push(list.value.length + 1);
+      }
+      resolve(arr)
+    }, 1000)
+  })
+}
+
 const onLoad = () => {
-  console.log("onLoad: count", count.value);
   // 异步更新数据
   // setTimeout 仅做示例，真实场景中一般为 ajax 请求
-  setTimeout(() => {
-    for (let i = 0; i < 10; i++) {
-      list.value.push(list.value.length + 1);
-    }
-
+  getData().then((res) => {
+    list.value.push(...res)
     // 加载状态结束
     loading.value = false;
-    // 加载计数
-    count.value++;
 
     // 数据全部加载完成
     if (list.value.length >= 40) {
       finished.value = true;
     }
-  }, 1000);
+  })
 };
 
 const refreshing = ref(false);
@@ -67,7 +73,6 @@ const onRefresh = () => {
 const onSearch = () => {
   onRefresh()
 }
-
 </script>
 
 <route lang="yaml">
