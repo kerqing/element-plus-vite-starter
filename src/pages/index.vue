@@ -1,7 +1,6 @@
 <template>
   <van-sticky>
-    <van-nav-bar title="标题" />
-    <van-search v-model="value" placeholder="请输入搜索关键词" />
+    <van-search v-model="value" placeholder="请输入搜索关键词" @search="onSearch" />
   </van-sticky>
   <van-pull-refresh
     ref="refreshRef"
@@ -23,23 +22,12 @@
       <van-cell v-for="item in list" :key="item" :title="item" />
     </van-list>
   </van-pull-refresh>
-
-  <!-- back to top button -->
-  <transition name="van-fade">
-    <van-button
-      v-show="y > 0"
-      ref="root"
-      class="back-top"
-      type="primary"
-      icon="arrow-up"
-      @click="onBackTop"
-    >
-    </van-button>
-  </transition>
+  <van-back-top />
+  
 </template>
 
 <script setup lang="ts">
-import { useScrollParent, useEventListener } from "@vant/use";
+const value = ref("")
 const list = ref<number[]>([]);
 const loading = ref(false);
 const finished = ref(false);
@@ -76,27 +64,11 @@ const onRefresh = () => {
   }, 1000);
 };
 
-const root = ref();
-const scrollParent = useScrollParent(root);
-const { x, y, isScrolling, arrivedState, directions } = useScroll(scrollParent);
-useEventListener("scroll", () => {}, { target: scrollParent });
-const onBackTop = () => {
-  y.value = 0;
-};
+const onSearch = () => {
+  onRefresh()
+}
+
 </script>
-
-<style>
-.back-top {
-  position: fixed;
-  right: 10px;
-  bottom: 100px;
-  z-index: 9999;
-}
-
-.btn {
-  width: 10rem;
-}
-</style>
 
 <route lang="yaml">
 meta:

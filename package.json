@@ -11,7 +11,7 @@
   "dependencies": {
     "@vueuse/core": "^9.3.0",
     "amfe-flexible": "^2.2.1",
-    "vant": "^3.6.4",
+    "vant": "^4.0.2",
     "vue": "^3.2.36",
     "vue-router": "^4.1.5"
   },
